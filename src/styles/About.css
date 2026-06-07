@@ -139,6 +139,18 @@
   box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
 
+@media (max-width: 768px) {
+  .glass-card {
+    padding: 2rem 1.5rem;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  .sticky-card-wrapper.align-left,
+  .sticky-card-wrapper.align-right {
+    justify-content: center;
+  }
+}
+
 
 
 /* 5. Floating Stats over Parallax Background */
@@ -212,6 +224,17 @@
   letter-spacing: 0.1em;
   color: #555;
   margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .stats-card-right {
+    margin: 0 auto;
+    max-width: 100%;
+  }
+  .floating-stats-content {
+    padding: 0 1rem;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 600px) {
