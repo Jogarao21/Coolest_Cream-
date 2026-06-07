@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/Menu.css';
 
 // Import images
@@ -26,6 +26,21 @@ const flavors = [
 
 function Menu() {
     const [filter, setFilter] = useState('All');
+    const [bsIndex, setBsIndex] = useState(0);
+
+    const bestSellers = [flavors[0], flavors[1], flavors[5], flavors[2], flavors[4]];
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setBsIndex((prev) => (prev + 1) % bestSellers.length);
+        }, 3000);
+        return () => clearInterval(timer);
+    }, [bestSellers.length]);
+
+    const getBsItem = (offset) => {
+        const index = (bsIndex + offset + bestSellers.length) % bestSellers.length;
+        return bestSellers[index];
+    };
 
     const tabs = ['All', 'Classic', 'Seasonal', 'Vegan', 'Sugar-Free'];
 
@@ -90,6 +105,26 @@ function Menu() {
                     <p className="text-muted">
                         🌿 All flavours available in cup or cone. Vegan options made in a dedicated dairy-free churn. Allergen info available at the counter.
                     </p>
+                </div>
+
+                <div className="best-sellers-section bottom-slider">
+                    <h2 className="best-sellers-title">BEST SELLERS 🏆</h2>
+                    <div className="best-sellers-display" key={bsIndex}>
+                        <div className="best-sellers-circle side">
+                            <img src={getBsItem(-1).image} alt={getBsItem(-1).name} />
+                        </div>
+                        <div className="best-sellers-center">
+                            <div className="best-sellers-circle main">
+                                <img src={getBsItem(0).image} alt={getBsItem(0).name} />
+                            </div>
+                            <div className="best-sellers-button">
+                                {getBsItem(0).name}
+                            </div>
+                        </div>
+                        <div className="best-sellers-circle side">
+                            <img src={getBsItem(1).image} alt={getBsItem(1).name} />
+                        </div>
+                    </div>
                 </div>
 
             </div>
