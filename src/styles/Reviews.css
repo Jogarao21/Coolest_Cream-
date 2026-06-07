@@ -1,0 +1,213 @@
+/* ============================================
+   REVIEWS — Glassmorphic Marquee Section
+   ============================================ */
+
+.reviews-section {
+    position: relative;
+    background: #ffffff;
+    padding: var(--space-16) 0;
+    overflow: hidden;
+    color: var(--color-purple);
+}
+
+/* ── Background Blobs ── */
+.reviews-bg-elements {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.r-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.5;
+}
+
+.r-blob-1 {
+    top: -10%;
+    left: -10%;
+    width: 600px;
+    height: 600px;
+    background: rgba(236, 0, 140, 0.08); /* Light pastel pink */
+}
+
+.r-blob-2 {
+    bottom: -10%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: rgba(63, 0, 127, 0.08); /* Light pastel purple */
+}
+
+/* ── Header ── */
+.reviews-header-container {
+    position: relative;
+    z-index: 1;
+}
+
+.reviews-header {
+    margin-bottom: 80px;
+}
+
+.reviews-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: var(--space-2);
+    color: var(--color-purple);
+    text-align: center;
+}
+
+.reviews-subtitle {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-4);
+    text-align: center;
+}
+
+.reviews-stars {
+    color: #f9ce34;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+/* ── Marquee ── */
+.marquee-wrapper {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    overflow: hidden;
+    padding: 60px 0 20px; /* Top padding for overlapping avatars */
+    /* Faded edges */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+
+.marquee-track {
+    display: flex;
+    gap: 2rem;
+    width: max-content;
+    animation: scrollMarquee 40s linear infinite;
+    padding-left: 2rem;
+}
+
+.marquee-track:hover {
+    animation-play-state: paused;
+}
+
+/* We have 10 items total (5 * 2). We shift by exactly half the width */
+@keyframes scrollMarquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 1rem)); }
+}
+
+/* ── Light Pink Glassmorphic Cards ── */
+.review-glass-card {
+    position: relative;
+    width: 260px; /* Reduced by ~10% from 290px */
+    background: rgba(236, 0, 140, 0.12); /* Pink tinted glass */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(236, 0, 140, 0.2); /* Pink border */
+    border-radius: 20px;
+    padding: 0 20px 24px; /* Reduced padding */
+    box-shadow: 0 16px 32px rgba(236, 0, 140, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.review-glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(236, 0, 140, 0.12);
+}
+
+/* ── Avatar Overlapping Top ── */
+.review-avatar-wrap {
+    width: 76px; /* Slightly smaller avatar to match smaller card */
+    height: 76px;
+    border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(135deg, #ec008c, #3f007f);
+    margin-top: -38px; /* Pull it up exactly half its height */
+    margin-bottom: 16px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.review-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    background: #fff;
+    display: block;
+}
+
+/* ── Card Content ── */
+.review-content {
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.quote-mark {
+    font-size: 4rem;
+    line-height: 0;
+    color: rgba(236, 0, 140, 0.6);
+    font-family: Georgia, serif;
+}
+
+.quote-top {
+    align-self: flex-start;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.quote-bot {
+    align-self: flex-end;
+    margin-top: 15px;
+    transform: rotate(180deg);
+}
+
+.review-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin: 0;
+    flex-grow: 1;
+}
+
+.reviewer-info {
+    margin-top: 24px;
+}
+
+.reviewer-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-purple);
+    margin-bottom: 2px;
+}
+
+.reviewer-role {
+    font-size: 0.75rem;
+    color: var(--color-text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .reviews-title {
+        font-size: 2.2rem;
+    }
+    .review-glass-card {
+        width: 320px;
+    }
+}

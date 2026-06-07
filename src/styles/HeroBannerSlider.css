@@ -1,0 +1,198 @@
+/* ============================================
+   HERO BANNER SLIDER — Clean Image Only
+   ============================================ */
+
+.hbs-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 12px 40px rgba(63, 0, 127, 0.18);
+  background: transparent;
+  user-select: none;
+}
+
+/* Ghost image — invisible placeholder that gives the wrapper its natural height */
+.hbs-ghost {
+  width: 100%;
+  height: auto;
+  display: block;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ── Track ── */
+.hbs-track {
+  position: absolute;
+  inset: 0;
+}
+
+/* ── Slides ── */
+.hbs-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Cover the Gemini watermark in the bottom-right corner */
+.hbs-slide::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 90px;
+  height: 45px;
+  background: linear-gradient(
+    135deg,
+    transparent 30%,
+    rgba(247, 247, 247, 0.97) 100%
+  );
+  z-index: 5;
+  pointer-events: none;
+  border-bottom-right-radius: inherit;
+}
+
+/* Enter animations */
+.hbs-slide--active.hbs-slide--enter-next {
+  animation: slideEnterFromRight 0.8s cubic-bezier(0.77, 0, 0.18, 1) both;
+  z-index: 2;
+}
+.hbs-slide--active.hbs-slide--enter-prev {
+  animation: slideEnterFromLeft 0.8s cubic-bezier(0.77, 0, 0.18, 1) both;
+  z-index: 2;
+}
+
+/* Exit animations */
+.hbs-slide--exit.hbs-slide--exit-next {
+  animation: slideExitToLeft 0.8s cubic-bezier(0.77, 0, 0.18, 1) both;
+  z-index: 1;
+}
+.hbs-slide--exit.hbs-slide--exit-prev {
+  animation: slideExitToRight 0.8s cubic-bezier(0.77, 0, 0.18, 1) both;
+  z-index: 1;
+}
+
+@keyframes slideEnterFromRight {
+  from { transform: translateX(100%) scale(1.03); opacity: 0.7; }
+  to   { transform: translateX(0) scale(1); opacity: 1; }
+}
+@keyframes slideEnterFromLeft {
+  from { transform: translateX(-100%) scale(1.03); opacity: 0.7; }
+  to   { transform: translateX(0) scale(1); opacity: 1; }
+}
+@keyframes slideExitToLeft {
+  from { transform: translateX(0) scale(1); opacity: 1; }
+  to   { transform: translateX(-6%) scale(0.98); opacity: 0; }
+}
+@keyframes slideExitToRight {
+  from { transform: translateX(0) scale(1); opacity: 1; }
+  to   { transform: translateX(6%) scale(0.98); opacity: 0; }
+}
+
+/* ── Image ── */
+.hbs-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  pointer-events: none;
+}
+
+
+
+/* ── Arrow buttons ── */
+.hbs-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.hbs-arrow--left  { left: 0.75rem; }
+.hbs-arrow--right { right: 0.75rem; }
+
+.hbs-arrow:hover {
+  background: rgba(236, 0, 140, 0.75);
+  border-color: rgba(236, 0, 140, 0.8);
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 4px 16px rgba(236, 0, 140, 0.4);
+}
+
+/* ── Dots ── */
+.hbs-dots {
+  position: absolute;
+  bottom: 0.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.45rem;
+  z-index: 10;
+}
+
+.hbs-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s ease, width 0.3s ease;
+  padding: 0;
+}
+
+.hbs-dot--active {
+  background: #fff;
+  width: 22px;
+  border-radius: 4px;
+}
+
+/* ── Progress bar ── */
+.hbs-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 10;
+  overflow: hidden;
+}
+
+.hbs-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--color-pink), var(--color-purple));
+  animation: hbsProgress 4.5s linear forwards;
+}
+
+@keyframes hbsProgress {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .hbs-wrapper {
+    border-radius: var(--radius-lg);
+  }
+
+  .hbs-arrow {
+    width: 32px;
+    height: 32px;
+  }
+}

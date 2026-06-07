@@ -1,0 +1,138 @@
+/* =========================================
+   GALLERY — Full-Bleed Image Grid
+   ========================================= */
+
+.gallery-container {
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-16);
+}
+
+/* ── Grid ── */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: var(--space-8);
+}
+
+/* ── Individual card ── */
+.gallery-item {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 16px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.4s ease;
+    animation: galleryFadeIn 0.5s ease both;
+}
+
+@keyframes galleryFadeIn {
+    from { opacity: 0; transform: scale(0.96) translateY(10px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.gallery-item:hover,
+.gallery-item.hovered {
+    transform: scale(1.03) translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+    z-index: 2;
+}
+
+/* ── Dark gradient overlay ── */
+.gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.55) 0%,
+        rgba(0, 0, 0, 0.10) 50%,
+        rgba(0, 0, 0, 0.00) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    border-radius: inherit;
+}
+
+.gallery-item:hover .gallery-overlay,
+.gallery-item.hovered .gallery-overlay {
+    opacity: 1;
+}
+
+/* ── Content (badge) shown on hover ── */
+.gallery-content {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    right: 14px;
+    display: flex;
+    justify-content: flex-start;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.gallery-item:hover .gallery-content,
+.gallery-item.hovered .gallery-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── Category badge ── */
+.gallery-category-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    white-space: nowrap;
+}
+
+/* ── CTA section ── */
+.mt-lg {
+    margin-top: var(--space-12);
+}
+
+.mb-md {
+    margin-bottom: var(--space-4);
+}
+
+.gallery-cta {
+    padding-top: var(--space-8);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .gallery-item {
+        border-radius: 12px;
+    }
+}
+
+@media (max-width: 400px) {
+    .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+    }
+}

@@ -1,0 +1,189 @@
+/* ============================================
+   VALUES SLIDER — Full-width image carousel
+   Instagram story style transitions
+   ============================================ */
+
+.vs-wrap {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(63, 0, 127, 0.18);
+  background: #0a0010;
+  user-select: none;
+}
+
+/* ── Story progress bars ── */
+.vs-bars {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  gap: 6px;
+  z-index: 20;
+}
+
+.vs-bar-track {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.28);
+  overflow: hidden;
+}
+
+.vs-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 2px;
+  background: #fff;
+}
+
+/* Segment already passed → full */
+.vs-bar-fill--done {
+  width: 100%;
+  transition: none;
+}
+
+/* Active segment → animate across */
+.vs-bar-fill--active {
+  animation: vsBarFill linear forwards;
+  /* duration set inline via style prop */
+}
+
+@keyframes vsBarFill {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+/* ── Track ── */
+.vs-track {
+  position: relative;
+  width: 100%;
+  /* height driven by ghost — see vs-img below */
+  aspect-ratio: 16 / 7;
+}
+
+/* ── Slides ── */
+.vs-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── ENTER animations ─── */
+.vs-slide--in-next {
+  animation: vsSlideInRight 0.7s cubic-bezier(0.77, 0, 0.18, 1) both;
+  z-index: 2;
+}
+
+.vs-slide--in-prev {
+  animation: vsSlideInLeft 0.7s cubic-bezier(0.77, 0, 0.18, 1) both;
+  z-index: 2;
+}
+
+/* ─── EXIT animations ─── */
+.vs-slide--out-next {
+  animation: vsSlideOutLeft 0.7s cubic-bezier(0.77, 0, 0.18, 1) both;
+  z-index: 1;
+}
+
+.vs-slide--out-prev {
+  animation: vsSlideOutRight 0.7s cubic-bezier(0.77, 0, 0.18, 1) both;
+  z-index: 1;
+}
+
+@keyframes vsSlideInRight {
+  from { transform: translateX(100%) scale(1.04); opacity: 0.5; }
+  to   { transform: translateX(0)    scale(1);    opacity: 1; }
+}
+
+@keyframes vsSlideInLeft {
+  from { transform: translateX(-100%) scale(1.04); opacity: 0.5; }
+  to   { transform: translateX(0)     scale(1);    opacity: 1; }
+}
+
+@keyframes vsSlideOutLeft {
+  from { transform: translateX(0)   scale(1);    opacity: 1; }
+  to   { transform: translateX(-6%) scale(0.97); opacity: 0; }
+}
+
+@keyframes vsSlideOutRight {
+  from { transform: translateX(0)  scale(1);    opacity: 1; }
+  to   { transform: translateX(6%) scale(0.97); opacity: 0; }
+}
+
+/* ── Image ── */
+.vs-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  pointer-events: none;
+}
+
+/* ── Arrow buttons ── */
+.vs-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 15;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.vs-arrow--left  { left:  1rem; }
+.vs-arrow--right { right: 1rem; }
+
+.vs-arrow:hover {
+  background: rgba(236, 0, 140, 0.75);
+  border-color: rgba(236, 0, 140, 0.85);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 24px rgba(236, 0, 140, 0.4);
+}
+
+/* ── Dot navigation ── */
+.vs-dots {
+  position: absolute;
+  bottom: 1.1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 15;
+}
+
+.vs-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.25s ease, width 0.3s ease, border-radius 0.3s ease;
+}
+
+.vs-dot--active {
+  width: 26px;
+  border-radius: 4px;
+  background: #fff;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .vs-track { aspect-ratio: 4 / 3; }
+  .vs-arrow { width: 36px; height: 36px; }
+}

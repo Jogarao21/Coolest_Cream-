@@ -1,0 +1,81 @@
+/* ============================================
+   CONTACT PAGE STYLES
+   ============================================ */
+
+.contact-content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+    align-items: center;
+}
+
+@media (min-width: 900px) {
+    .contact-content-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ── Illustration & Hotspots ── */
+.contact-illustration-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 20px;
+}
+
+.contact-illustration-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+.img-placeholder {
+    width: 100%;
+    aspect-ratio: 1;
+    background: #f1f5f9;
+    border: 2px dashed #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 20px;
+    color: #64748b;
+    font-weight: 500;
+    padding: 20px;
+}
+
+/* ── Contact Details ── */
+.contact-details {
+    padding: var(--space-8);
+}
+
+.address-block,
+.contact-info-block,
+.hours-block {
+    margin-bottom: var(--space-4);
+}
+
+.contact-details h4 {
+    margin-bottom: var(--space-2);
+    font-size: var(--text-lg);
+}
+
+.contact-link {
+    color: var(--color-pink);
+    text-decoration: none;
+    font-weight: var(--font-medium);
+    transition: color 0.2s ease;
+}
+
+.contact-link:hover {
+    color: var(--color-purple);
+    text-decoration: underline;
+}
+
+.action-buttons {
+    display: flex;
+    gap: var(--space-4);
+}
