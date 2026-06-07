@@ -2,6 +2,32 @@
    CONTACT PAGE STYLES
    ============================================ */
 
+/* Luxury Header Styles */
+.luxury-header-wrap {
+    margin-bottom: 3rem;
+    text-align: center;
+}
+.luxury-eyebrow {
+    display: block;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #888;
+    margin-bottom: 1rem;
+}
+.luxury-heading {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 1rem;
+}
+.luxury-lead {
+    font-size: 1.1rem;
+    color: #555;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
 .contact-content-grid {
     display: grid;
     grid-template-columns: 1fr;

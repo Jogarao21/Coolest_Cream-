@@ -11,6 +11,7 @@ import imgPeanut from '../assets/Salted Peanut.jpeg';
 import imgCoconut from '../assets/Coconut Lychee.jpeg';
 import imgGuava from '../assets/Guava Chilli.jpeg';
 import imgVanilla from '../assets/Vanilla Bean Zero.jpeg';
+import imgBestSellersTitle from '../assets/Best_sellers.png';
 
 const flavors = [
     { name: 'Strawberry Cloud', desc: 'Fresh strawberries, mascarpone cream, light as air', price: 120, tags: ['Classic', 'Seasonal'], image: imgStrawberry },
@@ -52,10 +53,10 @@ function Menu() {
         <section id="menu" className="menu section">
             <div className="container menu-container">
 
-                <div className="about-header text-center">
-                    <span className="about-badge">Our Menu</span>
-                    <h2 className="about-heading">This Week's Picks 🍨</h2>
-                    <p className="about-lead">
+                <div className="luxury-header-wrap">
+                    <span className="luxury-eyebrow">Our Menu</span>
+                    <h2 className="luxury-heading">This Week's Picks 🍨</h2>
+                    <p className="luxury-lead">
                         Our menu rotates with the seasons. Every scoop is made fresh that morning.
                     </p>
                 </div>
@@ -108,7 +109,7 @@ function Menu() {
                 </div>
 
                 <div className="best-sellers-section bottom-slider">
-                    <h2 className="best-sellers-title">BEST SELLERS 🏆</h2>
+                    <img src={imgBestSellersTitle} alt="Best Sellers" className="best-sellers-title-img" />
                     <div className="best-sellers-display" key={bsIndex}>
                         <div className="best-sellers-circle side">
                             <img src={getBsItem(-1).image} alt={getBsItem(-1).name} />

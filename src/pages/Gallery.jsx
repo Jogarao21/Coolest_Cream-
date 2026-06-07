@@ -46,10 +46,10 @@ function Gallery() {
         <section id="gallery" className="gallery section bg-gray-light">
             <div className="container gallery-container">
 
-                <div className="about-header text-center">
-                    <span className="about-badge">Gallery</span>
-                    <h2 className="about-heading">A Feast for the Eyes 📸</h2>
-                    <p className="about-lead">
+                <div className="luxury-header-wrap">
+                    <span className="luxury-eyebrow">Gallery</span>
+                    <h2 className="luxury-heading">A Feast for the Eyes 📸</h2>
+                    <p className="luxury-lead">
                         From behind-the-scenes churning to those perfect scoop shots — follow us on Instagram @coolestcream for more.
                     </p>
                 </div>

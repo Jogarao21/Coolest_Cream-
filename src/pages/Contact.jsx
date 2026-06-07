@@ -8,9 +8,10 @@ function Contact() {
         <section id="contact" className="contact section">
             <div className="container contact-container">
 
-                <div className="about-header text-center" style={{ marginBottom: '60px' }}>
-                    <h2 className="section-title text-purple">Get In Touch 📍</h2>
-                    <p className="section-subtitle text-muted">
+                <div className="luxury-header-wrap">
+                    <span className="luxury-eyebrow">Contact</span>
+                    <h2 className="luxury-heading">Get In Touch 📍</h2>
+                    <p className="luxury-lead">
                         We are here for you! Reach out to us or visit our location.
                     </p>
                 </div>

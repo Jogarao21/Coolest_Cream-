@@ -1,74 +1,109 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import '../styles/About.css';
 
 import ThreeValues from '../components/ThreeValues';
 
-/* ─────────────────────────────────────────
-   Scroll-reveal hook
-───────────────────────────────────────── */
-function useReveal(delay = 0) {
-  const ref = useRef(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    el.style.transitionDelay = `${delay}s`;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add('is-visible');
-          obs.unobserve(el);
-        }
-      },
-      { threshold: 0.08 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [delay]);
-  return ref;
-}
+// Images
+import bgImgOrigin from '../assets/background_image_4.jpeg';
 
-/* ─────────────────────────────────────────
-   Stat Card
-───────────────────────────────────────── */
-function StatCard({ value, label, gradient, delay }) {
-  const ref = useReveal(delay);
+import bgImgCraft from '../assets/background_image_3.jpeg';
+import bgImgLove from '../assets/background_image_2.png';
+
+// Scroll Progress Indicator Component
+function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
   return (
-    <div ref={ref} className="stat-card reveal" style={{ background: gradient }}>
-      <div className="stat-card-glow" />
-      <span className="stat-card-value">{value}</span>
-      <span className="stat-card-label">{label}</span>
-    </div>
+    <motion.div 
+      className="scroll-progress-bar"
+      style={{ scaleX: scrollYProgress, transformOrigin: '0%' }}
+    />
   );
 }
 
-// Images for Story Blocks
-import imgProcess from '../assets/Fresh Churning.png';
-import imgQuality from '../assets/Made with Love.png';
-import imgCrafted from '../assets/Happy Customers.png';
-
-/* ─────────────────────────────────────────
-   Story Block
-───────────────────────────────────────── */
-function StoryBlock({ layout = 'left', bgColor, title, highlight, lead, text, image, bgClass = '', year }) {
-  const ref = useReveal(0.1);
+// 1. Hero Story
+function HeroStory() {
   return (
-    <div ref={ref} className={`story-block reveal ${bgClass}`} style={{ backgroundColor: bgColor }}>
-      <div className={`container story-block-container ${layout}`}>
-        {year && <div className="story-year-bg">{year}</div>}
-        <div className="story-content">
-          <h2 className="story-title">
-            {title} <span className="story-highlight">{highlight}</span>
-          </h2>
-          {lead && <p className="story-lead">{lead}</p>}
-          {text && <p className="story-text">{text}</p>}
+    <section className="luxury-hero">
+      <motion.div 
+        className="luxury-hero-content"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
+        <span className="luxury-eyebrow">Chapter I</span>
+        <h1 className="luxury-title">The Pursuit of Real Ice Cream.</h1>
+        <p className="luxury-lead">Born in Vizag. Made with love. No shortcuts.</p>
+      </motion.div>
+    </section>
+  );
+}
+
+// 2. Origin Story (Sticky)
+function StickyChapter({ eyebrow, title, text, image, align = 'left' }) {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
+  const scaleImg = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+  const yCard = useTransform(scrollYProgress, [0, 1], [150, -150]);
+
+  return (
+    <section ref={containerRef} className="sticky-chapter-container">
+      <div className="sticky-chapter-content">
+        <motion.div className="sticky-image-wrap" style={{ scale: scaleImg }}>
+          <img src={image} alt={title} className="sticky-image" />
+        </motion.div>
+        
+        {/* Glassmorphism Card */}
+        <div className={`sticky-card-wrapper align-${align}`}>
+          <motion.div className="glass-card" style={{ y: yCard }}>
+            <span className="luxury-eyebrow">{eyebrow}</span>
+            <h2 className="luxury-heading">{title}</h2>
+            <p className="luxury-body">{text}</p>
+          </motion.div>
         </div>
-        {image && (
-          <div className="story-image-wrap">
-            <img src={image} alt="Story visual" className="story-image" />
-          </div>
-        )}
       </div>
-    </div>
+    </section>
+  );
+}
+
+
+
+// 4. Floating Stat Cards over Parallax Background (Why Customers Love Us)
+function FloatingStatsChapter() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start end", "end start"] });
+  const yBg = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
+
+  return (
+    <section ref={containerRef} className="floating-stats-chapter">
+      <motion.div className="floating-stats-bg" style={{ backgroundImage: `url(${bgImgLove})`, y: yBg }} />
+      <div className="floating-stats-content">
+        <motion.div 
+          className="glass-card stats-card-right"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+        >
+          <span className="luxury-eyebrow">The Standard</span>
+          <h2 className="luxury-heading">Why Vizag Loves Us</h2>
+          <div className="stats-mini-grid">
+            <div className="stat-item">
+              <span className="stat-num">30+</span>
+              <span className="stat-txt">Flavours</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-num">10K+</span>
+              <span className="stat-txt">Smiles</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-num">3</span>
+              <span className="stat-txt">Parlours</span>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
   );
 }
 
@@ -78,94 +113,41 @@ function StoryBlock({ layout = 'left', bgColor, title, highlight, lead, text, im
    MAIN PAGE
 ═══════════════════════════════════════════ */
 export default function About() {
-  const headerRef     = useReveal(0);
-  const valuesHeadRef = useReveal(0);
-
   return (
-    <section id="about" className="about-section">
-      <div className="blob blob--pink"   aria-hidden="true" />
-      <div className="blob blob--purple" aria-hidden="true" />
+    <div id="about" className="luxury-about-page">
+      <ScrollProgress />
+      
+      <HeroStory />
+      
+      <StickyChapter 
+        eyebrow="The Beginning"
+        title="Started From a Cart"
+        text="In 2019, we set out with a simple cart in Vizag. Our mission? Bring back the lost art of real, uncompromised ice cream."
+        image={bgImgOrigin}
+        align="left"
+      />
 
-      <div className="container about-wrap">
 
-        {/* ── Header ── */}
-        <div ref={headerRef} className="about-header reveal">
-          <span className="about-badge">Our Story</span>
-          <h2 className="about-heading">
-            Born in Vizag,<br />
-            Made with <span className="accent-pink">Love</span> 🍨
-          </h2>
-          <p className="about-lead">
-            Coolest Cream started in 2019 with one small cart and a big obsession —
-            making ice cream the way it used to be.
-          </p>
-        </div>
 
-        <div className="about-main-centered">
-          <div className="cards-stack-row">
-            <StatCard value="30+"  label="Handcrafted Flavours"
-              gradient="linear-gradient(135deg,#EC008C 0%,#9B00CF 100%)" delay={0} />
-            <StatCard value="10K+" label="Happy Customers"
-              gradient="linear-gradient(135deg,#7B00BF 0%,#3F007F 100%)" delay={0.12} />
-            <StatCard value="3"    label="Parlours in Vizag"
-              gradient="linear-gradient(135deg,#3F007F 0%,#1A0040 100%)" delay={0.24} />
-          </div>
-        </div>
+      <StickyChapter 
+        eyebrow="The Craft"
+        title="Tested at Every Step"
+        text="From sourcing raw ingredients to the final swirl in your cup, we monitor every stage. Perfection takes patience."
+        image={bgImgCraft}
+        align="right"
+      />
 
-        {/* ══════════════════════════════════════
-            STORY BLOCKS (Corner House Style)
-        ══════════════════════════════════════ */}
-        <div className="story-sections-wrapper">
-          <StoryBlock 
-            bgColor="var(--color-purple)" 
-            bgClass="story-bg-purple"
-            year="2019"
-            title="WHERE IT ALL"
-            highlight="BEGAN"
-            layout="center"
-          />
+      <FloatingStatsChapter />
 
-          <StoryBlock 
-            bgColor="var(--color-background-light)"
-            bgClass="story-bg-wavy-1"
-            title="So, what makes us Vizag's"
-            highlight="favourite guilty pleasure?"
-            image={imgProcess}
-            layout="left"
-          />
-
-          <StoryBlock 
-            bgColor="#ffffff"
-            bgClass="story-bg-wavy-2"
-            title="As our customers expect,"
-            highlight="we serve high-quality ice cream"
-            lead="desserts, something sweet and delectable for everyone's palate."
-            image={imgQuality}
-            layout="right"
-          />
-
-          <StoryBlock 
-            bgColor="var(--color-background-light)"
-            bgClass="story-bg-wavy-3"
-            title="Our recipes are not only specially crafted, but also"
-            highlight="monitored and tested"
-            lead="at each stage, from the production line to the sales counter at every parlour."
-            image={imgCrafted}
-            layout="left"
-          />
-        </div>
-
-        {/* ══════════════════════════════════════
-            WHAT WE STAND FOR — Image carousel
-        ══════════════════════════════════════ */}
-        <div ref={valuesHeadRef} className="values-header reveal">
+      {/* WHAT WE STAND FOR - UNCHANGED */}
+      <section className="values-section">
+        <div className="values-header-wrap">
           <h3 className="values-heading">What We Stand For</h3>
           <p className="values-lead">Every scoop carries our promise to you</p>
         </div>
-
         <ThreeValues />
+      </section>
 
-      </div>
-    </section>
+    </div>
   );
 }

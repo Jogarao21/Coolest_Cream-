@@ -11,8 +11,30 @@
     position: relative;
 }
 
-.about-header {
-    margin-bottom: var(--space-8);
+/* Luxury Header Styles */
+.luxury-header-wrap {
+    margin-bottom: 3rem;
+    text-align: center;
+}
+.luxury-eyebrow {
+    display: block;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #888;
+    margin-bottom: 1rem;
+}
+.luxury-heading {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 1rem;
+}
+.luxury-lead {
+    font-size: 1.1rem;
+    color: #555;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 /* ============================================
@@ -24,20 +46,20 @@
     padding: var(--space-8) var(--space-3);
     margin-bottom: var(--space-16);
     margin-top: var(--space-16);
-    background-color: var(--color-background-light);
+    background-color: #ffffff; /* User requested pure white background */
     text-align: center;
     box-shadow: 0 10px 30px rgba(63,0,127,0.05);
 }
 
-.best-sellers-title {
-    font-family: var(--font-display);
-    font-size: clamp(1.8rem, 4vw, 3rem);
-    color: var(--color-purple);
-    text-transform: uppercase;
-    font-weight: 900;
-    margin-bottom: var(--space-6);
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 0px rgba(236,0,140,0.15);
+.best-sellers-title-img {
+    display: block;
+    margin: 0 auto var(--space-6) auto;
+    max-width: 300px; /* Limits size to keep it elegant */
+    width: 100%;
+    height: auto;
+    /* Forces the image's light pink background (255, 251, 247) to become pure white (255, 255, 255) */
+    filter: brightness(1.05);
+    mix-blend-mode: multiply;
 }
 
 .best-sellers-display {
