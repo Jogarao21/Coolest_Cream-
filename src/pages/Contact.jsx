@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/Contact.css';
+import contactIllustration from '../assets/contact_illustration.png';
 
 // The user will place the image at src/assets/contact_illustration.png
 
@@ -21,7 +22,7 @@ function Contact() {
                     {/* LEFT: Animated Illustration */}
                     <div className="contact-illustration-wrap card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px' }}>
                         <img 
-                            src="/src/assets/contact_illustration.png" 
+                            src={contactIllustration} 
                             alt="Contact Customer Service 24/7" 
                             className="contact-illustration-img"
                             onError={(e) => {
