@@ -5,6 +5,7 @@
 .menu {
     position: relative;
     background-color: var(--color-background-light);
+    padding-bottom: var(--space-6);
 }
 
 .menu-container {
@@ -43,21 +44,22 @@
 .best-sellers-section {
     border: 2px solid var(--color-purple);
     border-radius: var(--radius-xl);
-    padding: var(--space-8) var(--space-3);
-    margin-bottom: var(--space-16);
-    margin-top: var(--space-16);
-    background-color: #ffffff; /* User requested pure white background */
+    padding: var(--space-4) var(--space-3);
+    margin-bottom: var(--space-4);
+    margin-top: var(--space-8);
+    background-color: #ffffff;
     text-align: center;
     box-shadow: 0 10px 30px rgba(63,0,127,0.05);
+    max-width: 782px;
+    margin-inline: auto;
 }
 
 .best-sellers-title-img {
     display: block;
-    margin: 0 auto var(--space-6) auto;
-    max-width: 300px; /* Limits size to keep it elegant */
+    margin: 0 auto var(--space-3) auto;
+    max-width: 180px; /* Reduced for compact look */
     width: 100%;
     height: auto;
-    /* Forces the image's light pink background (255, 251, 247) to become pure white (255, 255, 255) */
     filter: brightness(1.05);
     mix-blend-mode: multiply;
 }
@@ -66,7 +68,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--space-6);
+    gap: var(--space-4);
     flex-wrap: wrap;
     animation: slideSwap 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
@@ -91,8 +93,8 @@
 }
 
 .best-sellers-circle.side {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
 }
 
 .best-sellers-center {
@@ -103,8 +105,8 @@
 }
 
 .best-sellers-circle.main {
-    width: 240px;
-    height: 240px;
+    width: 160px;
+    height: 160px;
     border: 5px solid #fff;
     box-shadow: 0 15px 35px rgba(0,0,0,0.15);
 }
@@ -133,9 +135,9 @@
 }
 
 @media (max-width: 900px) {
-    .best-sellers-circle.main { width: 250px; height: 250px; }
-    .best-sellers-circle.side { width: 150px; height: 150px; }
-    .best-sellers-display { gap: var(--space-4); }
+    .best-sellers-circle.main { width: 140px; height: 140px; }
+    .best-sellers-circle.side { width: 90px; height: 90px; }
+    .best-sellers-display { gap: var(--space-3); }
 }
 
 @media (max-width: 600px) {

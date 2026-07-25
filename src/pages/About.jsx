@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import '../styles/About.css';
 
-import ThreeValues from '../components/ThreeValues';
+import ValuesGrid from '../components/ValuesGrid';
 
 // Images
 import bgImgOrigin from '../assets/background_image_4.jpeg';
@@ -40,17 +40,24 @@ function HeroStory() {
 }
 
 // 2. Origin Story (Sticky)
+// Disable parallax on small screens to prevent mobile jank
+const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+
 function StickyChapter({ eyebrow, title, text, image, align = 'left' }) {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
-  const scaleImg = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
-  const yCard = useTransform(scrollYProgress, [0, 1], [150, -150]);
+  const scaleImgFull = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+  const yCardFull    = useTransform(scrollYProgress, [0, 1], [150, -150]);
+
+  // On mobile: no scale/translate — static layout, zero GPU cost
+  const scaleImg = isMobile ? 1 : scaleImgFull;
+  const yCard    = isMobile ? 0 : yCardFull;
 
   return (
-    <section ref={containerRef} className="sticky-chapter-container">
+    <section ref={containerRef} className={`sticky-chapter-container${isMobile ? ' mobile-chapter' : ''}`}>
       <div className="sticky-chapter-content">
         <motion.div className="sticky-image-wrap" style={{ scale: scaleImg }}>
-          <img src={image} alt={title} className="sticky-image" />
+          <img src={image} alt={title} className="sticky-image" loading="lazy" />
         </motion.div>
         
         {/* Glassmorphism Card */}
@@ -72,7 +79,8 @@ function StickyChapter({ eyebrow, title, text, image, align = 'left' }) {
 function FloatingStatsChapter() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start end", "end start"] });
-  const yBg = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
+  const yBgFull = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
+  const yBg = isMobile ? '0%' : yBgFull;
 
   return (
     <section ref={containerRef} className="floating-stats-chapter">
@@ -139,13 +147,13 @@ export default function About() {
 
       <FloatingStatsChapter />
 
-      {/* WHAT WE STAND FOR - UNCHANGED */}
+      {/* WHAT WE STAND FOR - Lightweight CSS grid (replaced heavy Three.js) */}
       <section className="values-section">
         <div className="values-header-wrap">
           <h3 className="values-heading">What We Stand For</h3>
           <p className="values-lead">Every scoop carries our promise to you</p>
         </div>
-        <ThreeValues />
+        <ValuesGrid />
       </section>
 
     </div>

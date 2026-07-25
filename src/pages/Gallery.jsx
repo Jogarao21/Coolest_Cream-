@@ -71,10 +71,16 @@ function Gallery() {
                         <div
                             key={idx}
                             className={`gallery-item ${hoveredIdx === idx ? 'hovered' : ''}`}
-                            style={{ backgroundImage: `url("${item.image}")` }}
                             onMouseEnter={() => setHoveredIdx(idx)}
                             onMouseLeave={() => setHoveredIdx(null)}
                         >
+                            <img
+                                src={item.image}
+                                alt={item.label}
+                                className="gallery-item-img"
+                                loading="lazy"
+                                decoding="async"
+                            />
                             <div className="gallery-overlay" />
                             <div className="gallery-content">
                                 <span className="gallery-category-badge">{item.category}</span>

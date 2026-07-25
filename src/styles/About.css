@@ -82,8 +82,22 @@
 
 /* 2 & 4. Sticky Chapters */
 .sticky-chapter-container {
-  height: 125vh; /* Greatly reduced scroll duration */
+  height: 125vh;
   position: relative;
+}
+
+/* Mobile: disable sticky scroll — too heavy for mobile GPU */
+.sticky-chapter-container.mobile-chapter {
+  height: auto;
+}
+.sticky-chapter-container.mobile-chapter .sticky-chapter-content {
+  position: relative;
+  height: auto;
+  min-height: 60vw;
+}
+.sticky-chapter-container.mobile-chapter .sticky-image-wrap {
+  position: relative;
+  height: 260px;
 }
 
 .sticky-chapter-content {
@@ -107,6 +121,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  will-change: transform;
 }
 
 /* Glassmorphism Card */
@@ -137,6 +152,7 @@
   border-radius: 24px;
   max-width: 480px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  will-change: transform;
 }
 
 @media (max-width: 768px) {
@@ -267,22 +283,17 @@
   color: #555;
 }
 
-.three-values-container {
-  width: 100%;
-  height: 460px; /* Base height for 4x1 desktop row */
-  position: relative;
-  z-index: 2;
-  margin-top: 2rem;
-}
+/* (Three.js canvas removed — replaced by ValuesGrid CSS component) */
 
-@media (max-width: 1300px) {
-  .three-values-container {
-    height: 720px; /* 2x2 grid for tablets/small laptops */
+@media (max-width: 768px) {
+  /* Disable backdrop-filter on mobile — extremely expensive on iOS/Android */
+  .glass-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.92);
   }
-}
-
-@media (max-width: 750px) {
-  .three-values-container {
-    height: 1200px; /* 1 column for mobile */
+  /* Disable scroll progress bar animation on mobile */
+  .scroll-progress-bar {
+    display: none;
   }
 }
